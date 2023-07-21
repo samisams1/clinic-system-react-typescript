@@ -2,10 +2,70 @@
 ### Do not make changes to this file directly
 
 
+type Admin {
+  Role: [Role]
+  email: String
+  firstName: String
+  id: ID
+  lastName: String
+  password: String
+  phoneNumber: String
+  roleId: String
+}
+
+type Appointment {
+  Doctor: [User]
+  Patient: [Patient]
+  checkUpDate: String
+  diagosis: String
+  doctor: String
+  id: Int
+  nextvist: String
+  patient: String
+  symptoms: String
+}
+
+type Checkup {
+  Doctor: [User]
+  Patient: [Patient]
+  checkUpDate: String
+  diagosis: String
+  doctor: Int
+  id: Int
+  nextvist: String
+  patient: Int
+  symptoms: String
+}
+
+type Doctor {
+  Role: [Role]
+  email: String
+  firstName: String
+  id: ID
+  lastName: String
+  password: String
+  phoneNumber: String
+  roleId: String
+}
+
 type Mutation {
-  createDraft(address: String, country: String, dateOfBirth: String, email: String, firstName: String, lastName: String, martialStatus: String, phoneNumber: String): Patient
+  createAppointment(checkUpDate: String, diagosis: String, doctor: Int, nextvist: String, patient: Int, symptoms: String): Appointment
+  createCheckup(checkUpDate: String, diagosis: String, doctor: Int, nextvist: String, patient: Int, symptoms: String): Checkup
+  createPatient(address: String, country: String, dateOfBirth: String, email: String, firstName: String, lastName: String, martialStatus: String, phoneNumber: String): Patient
+  createPatientVitals(bpDiastolic: String, bpSystolic: String, notes: String, patient: Int, temperature: String): PatientVitals
   deletePatient(id: Int): Patient
   updatePost(address: String, country: String, dateOfBirth: String, email: String, firstName: String, id: Int, lastName: String, martialStatus: String, phoneNumber: String): Patient
+}
+
+type Nurse {
+  Role: [Role]
+  email: String
+  firstName: String
+  id: ID
+  lastName: String
+  password: String
+  phoneNumber: String
+  roleId: String
 }
 
 type Patient {
@@ -20,15 +80,39 @@ type Patient {
   phoneNumber: String
 }
 
+type PatientVitals {
+  Patient: [Patient]
+  bpDiastolic: String
+  bpSystolic: String
+  id: Int
+  notes: String
+  patient: String
+  temperature: String
+}
+
 type Query {
+  PatientVitals(id: ID): [PatientVitals]
+  admins: [Admin]
+  appointments(id: ID): [Appointment]
+  checkups(id: ID): [Checkup]
+  doctors: [Doctor]
+  nurse: [Nurse]
   patients(id: ID): [Patient]
   user(id: ID): [User]
   users: [User]
 }
 
+type Role {
+  id: Int
+  name: String
+}
+
 type User {
   email: String
+  firstName: String
   id: ID
-  name: String
+  lastName: String
   password: String
+  phoneNumber: String
+  roleId: String
 }

@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { objectType } from "nexus";
 const prisma = new PrismaClient();
-export const User = objectType({
-    name:"User",
+export const Admin = objectType({
+    name:"Admin",
     definition(t) {
         t.id('id')
         t.string('email')
@@ -11,6 +11,14 @@ export const User = objectType({
         t.string('phoneNumber')
         t.string('password')
         t.string('roleId')
-        
+        t.list.field('Role', { type: 'Role',
+		resolve(_parent, _args, ctx) {
+				return prisma.role.findMany({
+                    where:{
+                        id:1
+                    }
+                })
+			  }, 
+		});
     },
 })

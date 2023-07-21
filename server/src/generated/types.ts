@@ -28,7 +28,52 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Admin: { // root type
+    email?: string | null; // String
+    firstName?: string | null; // String
+    id?: string | null; // ID
+    lastName?: string | null; // String
+    password?: string | null; // String
+    phoneNumber?: string | null; // String
+    roleId?: string | null; // String
+  }
+  Appointment: { // root type
+    checkUpDate?: string | null; // String
+    diagosis?: string | null; // String
+    doctor?: string | null; // String
+    id?: number | null; // Int
+    nextvist?: string | null; // String
+    patient?: string | null; // String
+    symptoms?: string | null; // String
+  }
+  Checkup: { // root type
+    checkUpDate?: string | null; // String
+    diagosis?: string | null; // String
+    doctor?: number | null; // Int
+    id?: number | null; // Int
+    nextvist?: string | null; // String
+    patient?: number | null; // Int
+    symptoms?: string | null; // String
+  }
+  Doctor: { // root type
+    email?: string | null; // String
+    firstName?: string | null; // String
+    id?: string | null; // ID
+    lastName?: string | null; // String
+    password?: string | null; // String
+    phoneNumber?: string | null; // String
+    roleId?: string | null; // String
+  }
   Mutation: {};
+  Nurse: { // root type
+    email?: string | null; // String
+    firstName?: string | null; // String
+    id?: string | null; // ID
+    lastName?: string | null; // String
+    password?: string | null; // String
+    phoneNumber?: string | null; // String
+    roleId?: string | null; // String
+  }
   Patient: { // root type
     address?: string | null; // String
     country?: string | null; // String
@@ -40,12 +85,27 @@ export interface NexusGenObjects {
     martialStatus?: string | null; // String
     phoneNumber?: string | null; // String
   }
+  PatientVitals: { // root type
+    bpDiastolic?: string | null; // String
+    bpSystolic?: string | null; // String
+    id?: number | null; // Int
+    notes?: string | null; // String
+    patient?: string | null; // String
+    temperature?: string | null; // String
+  }
   Query: {};
+  Role: { // root type
+    id?: number | null; // Int
+    name?: string | null; // String
+  }
   User: { // root type
     email?: string | null; // String
+    firstName?: string | null; // String
     id?: string | null; // ID
-    name?: string | null; // String
+    lastName?: string | null; // String
     password?: string | null; // String
+    phoneNumber?: string | null; // String
+    roleId?: string | null; // String
   }
 }
 
@@ -60,10 +120,65 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Admin: { // field return type
+    Role: Array<NexusGenRootTypes['Role'] | null> | null; // [Role]
+    email: string | null; // String
+    firstName: string | null; // String
+    id: string | null; // ID
+    lastName: string | null; // String
+    password: string | null; // String
+    phoneNumber: string | null; // String
+    roleId: string | null; // String
+  }
+  Appointment: { // field return type
+    Doctor: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+    Patient: Array<NexusGenRootTypes['Patient'] | null> | null; // [Patient]
+    checkUpDate: string | null; // String
+    diagosis: string | null; // String
+    doctor: string | null; // String
+    id: number | null; // Int
+    nextvist: string | null; // String
+    patient: string | null; // String
+    symptoms: string | null; // String
+  }
+  Checkup: { // field return type
+    Doctor: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+    Patient: Array<NexusGenRootTypes['Patient'] | null> | null; // [Patient]
+    checkUpDate: string | null; // String
+    diagosis: string | null; // String
+    doctor: number | null; // Int
+    id: number | null; // Int
+    nextvist: string | null; // String
+    patient: number | null; // Int
+    symptoms: string | null; // String
+  }
+  Doctor: { // field return type
+    Role: Array<NexusGenRootTypes['Role'] | null> | null; // [Role]
+    email: string | null; // String
+    firstName: string | null; // String
+    id: string | null; // ID
+    lastName: string | null; // String
+    password: string | null; // String
+    phoneNumber: string | null; // String
+    roleId: string | null; // String
+  }
   Mutation: { // field return type
-    createDraft: NexusGenRootTypes['Patient'] | null; // Patient
+    createAppointment: NexusGenRootTypes['Appointment'] | null; // Appointment
+    createCheckup: NexusGenRootTypes['Checkup'] | null; // Checkup
+    createPatient: NexusGenRootTypes['Patient'] | null; // Patient
+    createPatientVitals: NexusGenRootTypes['PatientVitals'] | null; // PatientVitals
     deletePatient: NexusGenRootTypes['Patient'] | null; // Patient
     updatePost: NexusGenRootTypes['Patient'] | null; // Patient
+  }
+  Nurse: { // field return type
+    Role: Array<NexusGenRootTypes['Role'] | null> | null; // [Role]
+    email: string | null; // String
+    firstName: string | null; // String
+    id: string | null; // ID
+    lastName: string | null; // String
+    password: string | null; // String
+    phoneNumber: string | null; // String
+    roleId: string | null; // String
   }
   Patient: { // field return type
     address: string | null; // String
@@ -76,24 +191,101 @@ export interface NexusGenFieldTypes {
     martialStatus: string | null; // String
     phoneNumber: string | null; // String
   }
+  PatientVitals: { // field return type
+    Patient: Array<NexusGenRootTypes['Patient'] | null> | null; // [Patient]
+    bpDiastolic: string | null; // String
+    bpSystolic: string | null; // String
+    id: number | null; // Int
+    notes: string | null; // String
+    patient: string | null; // String
+    temperature: string | null; // String
+  }
   Query: { // field return type
+    PatientVitals: Array<NexusGenRootTypes['PatientVitals'] | null> | null; // [PatientVitals]
+    admins: Array<NexusGenRootTypes['Admin'] | null> | null; // [Admin]
+    appointments: Array<NexusGenRootTypes['Appointment'] | null> | null; // [Appointment]
+    checkups: Array<NexusGenRootTypes['Checkup'] | null> | null; // [Checkup]
+    doctors: Array<NexusGenRootTypes['Doctor'] | null> | null; // [Doctor]
+    nurse: Array<NexusGenRootTypes['Nurse'] | null> | null; // [Nurse]
     patients: Array<NexusGenRootTypes['Patient'] | null> | null; // [Patient]
     user: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
   }
+  Role: { // field return type
+    id: number | null; // Int
+    name: string | null; // String
+  }
   User: { // field return type
     email: string | null; // String
+    firstName: string | null; // String
     id: string | null; // ID
-    name: string | null; // String
+    lastName: string | null; // String
     password: string | null; // String
+    phoneNumber: string | null; // String
+    roleId: string | null; // String
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Admin: { // field return type name
+    Role: 'Role'
+    email: 'String'
+    firstName: 'String'
+    id: 'ID'
+    lastName: 'String'
+    password: 'String'
+    phoneNumber: 'String'
+    roleId: 'String'
+  }
+  Appointment: { // field return type name
+    Doctor: 'User'
+    Patient: 'Patient'
+    checkUpDate: 'String'
+    diagosis: 'String'
+    doctor: 'String'
+    id: 'Int'
+    nextvist: 'String'
+    patient: 'String'
+    symptoms: 'String'
+  }
+  Checkup: { // field return type name
+    Doctor: 'User'
+    Patient: 'Patient'
+    checkUpDate: 'String'
+    diagosis: 'String'
+    doctor: 'Int'
+    id: 'Int'
+    nextvist: 'String'
+    patient: 'Int'
+    symptoms: 'String'
+  }
+  Doctor: { // field return type name
+    Role: 'Role'
+    email: 'String'
+    firstName: 'String'
+    id: 'ID'
+    lastName: 'String'
+    password: 'String'
+    phoneNumber: 'String'
+    roleId: 'String'
+  }
   Mutation: { // field return type name
-    createDraft: 'Patient'
+    createAppointment: 'Appointment'
+    createCheckup: 'Checkup'
+    createPatient: 'Patient'
+    createPatientVitals: 'PatientVitals'
     deletePatient: 'Patient'
     updatePost: 'Patient'
+  }
+  Nurse: { // field return type name
+    Role: 'Role'
+    email: 'String'
+    firstName: 'String'
+    id: 'ID'
+    lastName: 'String'
+    password: 'String'
+    phoneNumber: 'String'
+    roleId: 'String'
   }
   Patient: { // field return type name
     address: 'String'
@@ -106,22 +298,60 @@ export interface NexusGenFieldTypeNames {
     martialStatus: 'String'
     phoneNumber: 'String'
   }
+  PatientVitals: { // field return type name
+    Patient: 'Patient'
+    bpDiastolic: 'String'
+    bpSystolic: 'String'
+    id: 'Int'
+    notes: 'String'
+    patient: 'String'
+    temperature: 'String'
+  }
   Query: { // field return type name
+    PatientVitals: 'PatientVitals'
+    admins: 'Admin'
+    appointments: 'Appointment'
+    checkups: 'Checkup'
+    doctors: 'Doctor'
+    nurse: 'Nurse'
     patients: 'Patient'
     user: 'User'
     users: 'User'
   }
+  Role: { // field return type name
+    id: 'Int'
+    name: 'String'
+  }
   User: { // field return type name
     email: 'String'
+    firstName: 'String'
     id: 'ID'
-    name: 'String'
+    lastName: 'String'
     password: 'String'
+    phoneNumber: 'String'
+    roleId: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
-    createDraft: { // args
+    createAppointment: { // args
+      checkUpDate?: string | null; // String
+      diagosis?: string | null; // String
+      doctor?: number | null; // Int
+      nextvist?: string | null; // String
+      patient?: number | null; // Int
+      symptoms?: string | null; // String
+    }
+    createCheckup: { // args
+      checkUpDate?: string | null; // String
+      diagosis?: string | null; // String
+      doctor?: number | null; // Int
+      nextvist?: string | null; // String
+      patient?: number | null; // Int
+      symptoms?: string | null; // String
+    }
+    createPatient: { // args
       address?: string | null; // String
       country?: string | null; // String
       dateOfBirth?: string | null; // String
@@ -130,6 +360,13 @@ export interface NexusGenArgTypes {
       lastName?: string | null; // String
       martialStatus?: string | null; // String
       phoneNumber?: string | null; // String
+    }
+    createPatientVitals: { // args
+      bpDiastolic?: string | null; // String
+      bpSystolic?: string | null; // String
+      notes?: string | null; // String
+      patient?: number | null; // Int
+      temperature?: string | null; // String
     }
     deletePatient: { // args
       id?: number | null; // Int
@@ -147,6 +384,15 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    PatientVitals: { // args
+      id?: string | null; // ID
+    }
+    appointments: { // args
+      id?: string | null; // ID
+    }
+    checkups: { // args
+      id?: string | null; // ID
+    }
     patients: { // args
       id?: string | null; // ID
     }

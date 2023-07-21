@@ -4,7 +4,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 export const Mutation = mutationType({
     definition(t){
-        t.field('createDraft', {
+      // start patient mutation
+        t.field('createPatient', {
             type: 'Patient',
             args: {
                   firstName: stringArg(),
@@ -80,5 +81,104 @@ export const Mutation = mutationType({
               })
             }
           }) 
+        
+        
+        // end patient mutation
+        //start Apointment  mutation
+        t.field('createAppointment', {
+          type: 'Appointment',
+          args: {
+            symptoms: stringArg(),
+            diagosis:stringArg(),
+            checkUpDate:stringArg(),
+            nextvist:stringArg(),
+            doctor:intArg(),
+            patient:intArg()
+          },
+          resolve: (_parent, { 
+            symptoms, 
+            diagosis,
+            checkUpDate,
+            nextvist,
+            doctor,
+            patient
+           }, ctx) => {
+            return prisma.appointment.create({
+              data: {
+                symptoms,
+                diagosis,
+                checkUpDate,
+                nextvist,
+                doctor: { connect: { id: Number(doctor) } },
+                patient: { connect: { id: Number(doctor) } },
+
+              },
+            })
+          },
+        });
+      //end Appointment mutation
+      //start checkup  mutation
+      
+      t.field('createCheckup', {
+        type: 'Checkup',
+        args: {
+          symptoms: stringArg(),
+          diagosis:stringArg(),
+          checkUpDate:stringArg(),
+          nextvist:stringArg(),
+          doctor:intArg(),
+          patient:intArg()
+        },
+        resolve: (_parent, { 
+          symptoms, 
+          diagosis,
+          checkUpDate,
+          nextvist,
+          doctor,
+          patient
+         }, ctx) => {
+          return prisma.checkUp.create({
+            data: {
+              symptoms,
+              diagosis,
+              checkUpDate,
+              nextvist,
+              doctor: { connect: { id: Number(doctor) } },
+              patient: { connect: { id: Number(patient) } },
+            },
+          })
+        },
+      });
+    //end checkup mutation
+    //start patientVitals  mutation
+    t.field('createPatientVitals', {
+      type: 'PatientVitals',
+      args: {
+        temperature: stringArg(),
+        bpSystolic:stringArg(),
+        bpDiastolic:stringArg(),
+        notes:stringArg(),
+        patient:intArg()
+      },
+      resolve: (_parent, { 
+        temperature, 
+        bpSystolic,
+        bpDiastolic,
+        notes,
+        patient
+       }, ctx) => {
+        return prisma.patientVitals.create({
+          data: {
+            temperature,
+            bpSystolic,
+            bpDiastolic,
+            notes,
+            patient: { connect: { id: Number(patient) } },
+
+          },
+        })
+      },
+    });
+  //end PatientVitals mutation
     }
     });

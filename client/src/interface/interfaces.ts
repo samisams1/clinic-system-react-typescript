@@ -10,4 +10,45 @@ export interface patientInterface {
     address?: string;
     country?: string;
   }
+  export interface userInterface {
+    id?: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    martialStatus?: string;
+    phoneNumber?: string;
+    password?:string;
+    role?:roleInterface;
+  }
+  export interface appointmentInterface {
+    id?: string;
+    symptoms?: string;
+    diagosis?: string;
+    checkUpDate?: string;
+    nextvist?: string;
+    doctor?: userInterface;
+    patient?: userInterface;
+
+  }
+  export interface checkUpInterface {
+    id?: string;
+    symptoms?: string;
+    diagosis?: string;
+    checkUpDate?: string;
+    nextvist?: string;
+    doctor?: userInterface;
+    patient?: userInterface;
+  }
+  export interface PatientVitals {
+    id?: string;
+    temperature?: string;
+    bpSystolic?: string;
+    bpDiastolic?: string;
+    notes?: userInterface;
+    patient?: userInterface;
+  }
+  export interface roleInterface {
+    id?: string;
+    name?: string;
+  }
 
