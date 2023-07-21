@@ -9,6 +9,7 @@ import Patient from "./scenes/Patient";
 import PatientAppointments from "./scenes/PatientAppointments";
 import PatientVitals from "./scenes/PatientVitals";
 import Checkup from "./scenes/Checkup";
+import Profile from "./scenes/Profile";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -24,6 +25,7 @@ function App() {
             <Topbar />
             <Routes> <Route path="/" element={<Dashboard />} /></Routes>
             <Routes><Route path="/admin" element={<Admin />} /> </Routes>
+            <Routes><Route path="/profile" element={<Profile />} /> </Routes>
             <Routes><Route path="/doctor" element={<Doctor />} /></Routes>
             <Routes><Route path="/patient" element={<Patient />} /></Routes>
             <Routes><Route path="/nurse" element={<Nurse />} /></Routes>
