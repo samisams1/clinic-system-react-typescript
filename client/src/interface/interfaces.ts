@@ -37,7 +37,7 @@ export interface patientInterface {
     checkUpDate?: string;
     nextvist?: string;
     doctor?: userInterface;
-    patient?: userInterface;
+    Patient: userInterface;
   }
   export interface PatientVitals {
     id?: string;
@@ -46,6 +46,7 @@ export interface patientInterface {
     bpDiastolic?: string;
     notes?: userInterface;
     patient?: userInterface;
+    doctor?: userInterface;
   }
   export interface roleInterface {
     id?: string;

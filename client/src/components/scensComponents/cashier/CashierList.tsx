@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { PATIENT_QUERY } from '../../../graphql/Patient';
 import { patientInterface } from '../../../interface/interfaces';
 import Button from '../../Button';
 import { Grid, Typography } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import Popup from '../../Popup';
 import PatientEditForm from '../patient/PatientEditForm';
+import { CASHIER_QUERY } from '../../../graphql/Cashier';
 
 export const CashierList = () => {
     const [openPopup,setOpenPopup] =useState(false);
     const  [openCofirmPopup,setOpenConfirimPopup]=useState(false);
     const [newData,setNewData]=useState("");
-    const {loading,error,data} = useQuery(PATIENT_QUERY);
+    const {loading,error,data} = useQuery(CASHIER_QUERY);
     if(loading) return <p>Loading...</p>
     if (error) return <p>{error.message}</p>
-    const admin = data.patients.map((row:patientInterface)=>(
+    console.log(data)
+    const cashier = data.cashier.map((row:patientInterface)=>(
         [row.id,row.firstName,row.lastName,row.dateOfBirth,row.maritalStatus,row.phoneNumber,row.email,row.email,row.address,row.country]
     ))
     const columns = [
@@ -119,8 +120,8 @@ export const CashierList = () => {
       return (
         <Grid>
              <MUIDataTable
-               title="Admin"
-               data={admin}
+               title="Cashier"
+               data={cashier}
                columns={columns}
                options={{
                  filterType: "checkbox",

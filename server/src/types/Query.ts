@@ -31,8 +31,18 @@ export const Query = queryType({
          });
         }
        });
-       t.list.field('nurse',{
+       t.list.field('nurses',{
         type:"Nurse",
+        resolve: (_, _args, ctx) => {
+         return prisma.user.findMany({
+          where:{
+            roleId:3
+          }
+         });
+        }
+       });
+       t.list.field('cashiers',{
+        type:"Cashier",
         resolve: (_, _args, ctx) => {
          return prisma.user.findMany({
           where:{

@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { PATIENT_QUERY } from '../../../graphql/Patient';
-import { patientInterface } from '../../../interface/interfaces';
 import Button from '../../Button';
 import { Grid, Typography } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import Popup from '../../Popup';
 import PatientEditForm from '../patient/PatientEditForm';
+import { userInterface } from '../../../interface/interfaces';
+import { DOCTOR_QUERY } from '../../../graphql/Doctors';
 
 export const DoctorList = () => {
     const [openPopup,setOpenPopup] =useState(false);
     const  [openCofirmPopup,setOpenConfirimPopup]=useState(false);
     const [newData,setNewData]=useState("");
-    const {loading,error,data} = useQuery(PATIENT_QUERY);
+    const {loading,error,data} = useQuery(DOCTOR_QUERY);
     if(loading) return <p>Loading...</p>
     if (error) return <p>{error.message}</p>
-    const admin = data.patients.map((row:patientInterface)=>(
-        [row.id,row.firstName,row.lastName,row.dateOfBirth,row.maritalStatus,row.phoneNumber,row.email,row.email,row.address,row.country]
+    console.log(data)
+    const doctor = data.doctors.map((row:userInterface)=>(
+        [row.id,row.firstName,row.lastName,row.phoneNumber,row.email]
     ))
     const columns = [
         {
@@ -40,20 +41,6 @@ export const DoctorList = () => {
           }
         },
         {
-          name: "Birth Date",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
-          name: "Martial Status",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
           name: "Phone Number",
           options: {
             filter: true,
@@ -62,20 +49,6 @@ export const DoctorList = () => {
         },
         {
           name: "Email",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
-          name: "Address",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
-          name: "Country",
           options: {
             filter: true,
             sort: false,
@@ -119,8 +92,8 @@ export const DoctorList = () => {
       return (
         <Grid>
              <MUIDataTable
-               title="Admin"
-               data={admin}
+               title="Doctor"
+               data={doctor}
                columns={columns}
                options={{
                  filterType: "checkbox",

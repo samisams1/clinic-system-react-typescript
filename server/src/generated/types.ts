@@ -46,6 +46,15 @@ export interface NexusGenObjects {
     patient?: string | null; // String
     symptoms?: string | null; // String
   }
+  Cashier: { // root type
+    email?: string | null; // String
+    firstName?: string | null; // String
+    id?: string | null; // ID
+    lastName?: string | null; // String
+    password?: string | null; // String
+    phoneNumber?: string | null; // String
+    roleId?: string | null; // String
+  }
   Checkup: { // root type
     checkUpDate?: string | null; // String
     diagosis?: string | null; // String
@@ -141,6 +150,16 @@ export interface NexusGenFieldTypes {
     patient: string | null; // String
     symptoms: string | null; // String
   }
+  Cashier: { // field return type
+    Role: Array<NexusGenRootTypes['Role'] | null> | null; // [Role]
+    email: string | null; // String
+    firstName: string | null; // String
+    id: string | null; // ID
+    lastName: string | null; // String
+    password: string | null; // String
+    phoneNumber: string | null; // String
+    roleId: string | null; // String
+  }
   Checkup: { // field return type
     Doctor: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     Patient: Array<NexusGenRootTypes['Patient'] | null> | null; // [Patient]
@@ -204,6 +223,7 @@ export interface NexusGenFieldTypes {
     PatientVitals: Array<NexusGenRootTypes['PatientVitals'] | null> | null; // [PatientVitals]
     admins: Array<NexusGenRootTypes['Admin'] | null> | null; // [Admin]
     appointments: Array<NexusGenRootTypes['Appointment'] | null> | null; // [Appointment]
+    cashier: Array<NexusGenRootTypes['Cashier'] | null> | null; // [Cashier]
     checkups: Array<NexusGenRootTypes['Checkup'] | null> | null; // [Checkup]
     doctors: Array<NexusGenRootTypes['Doctor'] | null> | null; // [Doctor]
     nurse: Array<NexusGenRootTypes['Nurse'] | null> | null; // [Nurse]
@@ -247,6 +267,16 @@ export interface NexusGenFieldTypeNames {
     nextvist: 'String'
     patient: 'String'
     symptoms: 'String'
+  }
+  Cashier: { // field return type name
+    Role: 'Role'
+    email: 'String'
+    firstName: 'String'
+    id: 'ID'
+    lastName: 'String'
+    password: 'String'
+    phoneNumber: 'String'
+    roleId: 'String'
   }
   Checkup: { // field return type name
     Doctor: 'User'
@@ -311,6 +341,7 @@ export interface NexusGenFieldTypeNames {
     PatientVitals: 'PatientVitals'
     admins: 'Admin'
     appointments: 'Appointment'
+    cashier: 'Cashier'
     checkups: 'Checkup'
     doctors: 'Doctor'
     nurse: 'Nurse'

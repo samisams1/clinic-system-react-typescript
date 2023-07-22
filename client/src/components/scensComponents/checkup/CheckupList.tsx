@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { PATIENT_QUERY } from '../../../graphql/Patient';
-import { patientInterface } from '../../../interface/interfaces';
+import { checkUpInterface } from '../../../interface/interfaces';
 import Button from '../../Button';
 import { Grid, Typography } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import Popup from '../../Popup';
 import PatientEditForm from '../patient/PatientEditForm';
+import { CHECKUP_QUERY } from '../../../graphql/Checkup';
 
 export const CheckupList = () => {
     const [openPopup,setOpenPopup] =useState(false);
     const  [openCofirmPopup,setOpenConfirimPopup]=useState(false);
     const [newData,setNewData]=useState("");
-    const {loading,error,data} = useQuery(PATIENT_QUERY);
+    const {loading,error,data} = useQuery(CHECKUP_QUERY);
+   
     if(loading) return <p>Loading...</p>
     if (error) return <p>{error.message}</p>
-    const admin = data.patients.map((row:patientInterface)=>(
-        [row.id,row.firstName,row.lastName,row.dateOfBirth,row.maritalStatus,row.phoneNumber,row.email,row.email,row.address,row.country]
+    console.log(data)
+    const checkup = data.checkups.map((row:checkUpInterface)=>(
+        [row.id,row.Patient.firstName,row.doctor?.firstName,row.symptoms,row.diagosis,row.checkUpDate,row.nextvist]
     ))
     const columns = [
         {
@@ -26,56 +28,42 @@ export const CheckupList = () => {
           }
         },
         {
-          label: "First Name",
+          label: "Patient Name",
           name: "Title",
           options: {
             filter: true,
           }
         },
         {
-          name: "Last Name",
+          name: "Doctor Name",
           options: {
             filter: true,
             sort: false,
           }
         },
         {
-          name: "Birth Date",
+          name: "Symptoms",
           options: {
             filter: true,
             sort: false,
           }
         },
         {
-          name: "Martial Status",
+          name: "diagosis",
           options: {
             filter: true,
             sort: false,
           }
         },
         {
-          name: "Phone Number",
+          name: "checkUpDate",
           options: {
             filter: true,
             sort: false,
           }
         },
         {
-          name: "Email",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
-          name: "Address",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
-          name: "Country",
+          name: "nextvist",
           options: {
             filter: true,
             sort: false,
@@ -119,8 +107,8 @@ export const CheckupList = () => {
       return (
         <Grid>
              <MUIDataTable
-               title="Admin"
-               data={admin}
+               title="Checkup"
+               data={checkup}
                columns={columns}
                options={{
                  filterType: "checkbox",

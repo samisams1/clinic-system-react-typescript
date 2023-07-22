@@ -14,7 +14,7 @@ import Profile from "./scenes/Profile";
 function App() {
   const [theme, colorMode] = useMode();
  // const [isSidebar, setIsSidebar] = useState<boolean>(true);
-
+ 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>

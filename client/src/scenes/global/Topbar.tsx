@@ -1,4 +1,4 @@
-import { Box, IconButton, useTheme } from "@mui/material";
+import { Box, Button, IconButton, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext } from "../../theme";
 import InputBase from "@mui/material/InputBase";
@@ -8,6 +8,7 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import { Link } from "react-router-dom";
 
 const Topbar = () => {
   const theme = useTheme();
@@ -25,7 +26,20 @@ const Topbar = () => {
       }}
      
       >
+<div>
 
+
+ <Button><Link to="/admin">admin</Link></Button> 
+ <Button><Link to="/nurse">nurse</Link></Button> 
+ <Button><Link to="/cashier">cashier</Link></Button> 
+ <Button><Link to="/doctor">doctor</Link></Button> 
+ <Button><Link to="/patientAppointments">patientAppointments</Link></Button> 
+ <Button><Link to="/patientVitals">patientVitals</Link></Button> 
+ <Button><Link to="/checkup">checkup</Link></Button> 
+ <Button><Link to="/profile">profile</Link></Button> 
+ <Button><Link to="/patient">patient</Link></Button> 
+
+</div>
         <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
         <IconButton type="button" sx={{ p: 1 }}>
           <SearchIcon />

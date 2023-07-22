@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { PATIENT_QUERY } from '../../../graphql/Patient';
-import { patientInterface } from '../../../interface/interfaces';
 import Button from '../../Button';
 import { Grid, Typography } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import Popup from '../../Popup';
 import PatientEditForm from '../patient/PatientEditForm';
+import { PatientVitals } from '../../../interface/interfaces';
+import { PATIENT_VITALS_QUERY } from '../../../graphql/PatientVitals';
 
 export const PatientAppointmentsList = () => {
     const [openPopup,setOpenPopup] =useState(false);
     const  [openCofirmPopup,setOpenConfirimPopup]=useState(false);
     const [newData,setNewData]=useState("");
-    const {loading,error,data} = useQuery(PATIENT_QUERY);
+    const {loading,error,data} = useQuery(PATIENT_VITALS_QUERY);
     if(loading) return <p>Loading...</p>
     if (error) return <p>{error.message}</p>
-    const admin = data.patients.map((row:patientInterface)=>(
-        [row.id,row.firstName,row.lastName,row.dateOfBirth,row.maritalStatus,row.phoneNumber,row.email,row.email,row.address,row.country]
+    console.log(data)
+    const patientVital = data.PatientVitals.map((row:PatientVitals)=>(
+        [row.id,row.temperature,row.bpSystolic,row.bpDiastolic,row.notes,row.patient?.firstName]
     ))
     const columns = [
         {
@@ -26,61 +27,41 @@ export const PatientAppointmentsList = () => {
           }
         },
         {
-          label: "First Name",
+          label: "temperature",
           name: "Title",
           options: {
             filter: true,
           }
         },
         {
-          name: "Last Name",
+          name: "bpDiastolic",
           options: {
             filter: true,
             sort: false,
           }
         },
         {
-          name: "Birth Date",
+          name: "bpSystolic",
           options: {
             filter: true,
             sort: false,
           }
         },
         {
-          name: "Martial Status",
+          name: "notes",
           options: {
             filter: true,
             sort: false,
           }
         },
         {
-          name: "Phone Number",
+          name: "patient",
           options: {
             filter: true,
             sort: false,
           }
         },
-        {
-          name: "Email",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
-          name: "Address",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
-          name: "Country",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
+      
         {
           name: "Edit",
           options: {
@@ -120,7 +101,7 @@ export const PatientAppointmentsList = () => {
         <Grid>
              <MUIDataTable
                title="Admin"
-               data={admin}
+               data={patientVital}
                columns={columns}
                options={{
                  filterType: "checkbox",

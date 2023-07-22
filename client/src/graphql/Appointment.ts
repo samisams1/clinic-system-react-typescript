@@ -1,5 +1,5 @@
 import gql from "graphql-tag"
-export const PATIENT_QUERY = gql`
+export const APPOITMENT_QUERY = gql`
 query Appointments {
     appointments {
       id

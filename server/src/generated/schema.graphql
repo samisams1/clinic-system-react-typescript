@@ -25,6 +25,17 @@ type Appointment {
   symptoms: String
 }
 
+type Cashier {
+  Role: [Role]
+  email: String
+  firstName: String
+  id: ID
+  lastName: String
+  password: String
+  phoneNumber: String
+  roleId: String
+}
+
 type Checkup {
   Doctor: [User]
   Patient: [Patient]
@@ -94,6 +105,7 @@ type Query {
   PatientVitals(id: ID): [PatientVitals]
   admins: [Admin]
   appointments(id: ID): [Appointment]
+  cashier: [Cashier]
   checkups(id: ID): [Checkup]
   doctors: [Doctor]
   nurse: [Nurse]

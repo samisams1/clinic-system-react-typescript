@@ -1,16 +1,20 @@
 import gql from "graphql-tag"
 export const CHECKUP_QUERY = gql`
-query Patients {
-    patients {
+query Checkups {
+    checkups {
       id
-      firstName
-      lastName
-      dateOfBirth
-      martialStatus
-      phoneNumber
-      email
-      address
-      country
+      symptoms
+      diagosis
+      checkUpDate
+      nextvist
+      doctor
+      patient
+      Patient {
+        firstName
+      }
+      Doctor {
+        firstName
+      }
     }
   }
 `

@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { PATIENT_QUERY } from '../../../graphql/Patient';
-import { patientInterface } from '../../../interface/interfaces';
+import { userInterface } from '../../../interface/interfaces';
 import Button from '../../Button';
 import { Grid, Typography } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import Popup from '../../Popup';
 import PatientEditForm from '../patient/PatientEditForm';
+import { ADMIN_QUERY } from '../../../graphql/Admin';
 
 export const AdminList = () => {
     const [openPopup,setOpenPopup] =useState(false);
     const  [openCofirmPopup,setOpenConfirimPopup]=useState(false);
     const [newData,setNewData]=useState("");
-    const {loading,error,data} = useQuery(PATIENT_QUERY);
+    const {loading,error,data} = useQuery(ADMIN_QUERY);
     if(loading) return <p>Loading...</p>
     if (error) return <p>{error.message}</p>
-    const admin = data.patients.map((row:patientInterface)=>(
-        [row.id,row.firstName,row.lastName,row.dateOfBirth,row.maritalStatus,row.phoneNumber,row.email,row.email,row.address,row.country]
+    console.log(data)
+    const admin = data.admins
+    .map((row:userInterface)=>(
+        [row.id,row.firstName,row.lastName,row.phoneNumber,row.email,row.email]
     ))
     const columns = [
         {
@@ -40,20 +42,6 @@ export const AdminList = () => {
           }
         },
         {
-          name: "Birth Date",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
-          name: "Martial Status",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
           name: "Phone Number",
           options: {
             filter: true,
@@ -62,20 +50,6 @@ export const AdminList = () => {
         },
         {
           name: "Email",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
-          name: "Address",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
-          name: "Country",
           options: {
             filter: true,
             sort: false,
