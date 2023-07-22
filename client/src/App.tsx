@@ -10,6 +10,8 @@ import PatientAppointments from "./scenes/PatientAppointments";
 import PatientVitals from "./scenes/PatientVitals";
 import Checkup from "./scenes/Checkup";
 import Profile from "./scenes/Profile";
+import ChangePassword from "./scenes/account/ChangePassword";
+import ForgotPassword from "./scenes/account/ForgotPassword";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -33,6 +35,8 @@ function App() {
             <Routes><Route path="/patientAppointments" element={<PatientAppointments />} /></Routes>
             <Routes><Route path="/patientVitals" element={<PatientVitals />} /></Routes>
             <Routes><Route path="/checkup" element={<Checkup />} /></Routes>
+            <Routes><Route path="/changePassword" element={<ChangePassword />} /></Routes>
+            <Routes><Route path="/forgotPassword" element={<ForgotPassword />} /></Routes>
             <Routes><Route path="/login" element={<Login />} /></Routes>
             <Routes><Route path="/register" element={<Register />} /></Routes>
           </main>
