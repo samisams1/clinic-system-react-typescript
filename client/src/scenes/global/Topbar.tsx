@@ -8,13 +8,19 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { ME_QUERY } from "../../graphql/Profile";
 
 const Topbar = () => {
+  const navigate = useNavigate();
+    const { loading, error, data } = useQuery(ME_QUERY)
+  
+
+
   const theme = useTheme();
   //const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
@@ -27,8 +33,6 @@ const Topbar = () => {
      
       >
 <div>
-
-
  <Button><Link to="/admin">admin</Link></Button> 
  <Button><Link to="/nurse">nurse</Link></Button> 
  <Button><Link to="/cashier">cashier</Link></Button> 

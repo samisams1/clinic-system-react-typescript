@@ -6,8 +6,7 @@ import {
 import ActionButton from '../../ActionButton';
 import Button from '../../Button';
 import Popup from '../../Popup';
-export const AdminToolbar =()=>{
-   
+export const Toolbar =({name,addName,formName}:any)=>{
   const [openPopup, setOpenPopup] = useState(false);
 return( 
 <Box>
@@ -20,26 +19,27 @@ return(
         m: -1
       }}
     >
-      <Typography   sx={{ m: 1 }}
+      <Typography
+        sx={{ m: 1 }}
         variant="h4"
       >
-        Admin
+        {name}
       </Typography>
       <Box sx={{ m: 1 }}>
       <ActionButton />
         <Button
-                       text="Add New Patient"
+                        text={addName}
                         variant="outlined"
                         onClick={() => { setOpenPopup(true);  }}
                     />
       </Box>
     </Box>
     <Popup
-                title="Admin Form"
+                title={name + " Form"}
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}
             >
-   Admin Form
+   {formName}
      </Popup>
   </Box>
 );

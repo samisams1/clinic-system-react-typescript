@@ -1,10 +1,10 @@
 import React from 'react'
-import LoginForm from '../../components/scensComponents/Login/LoginForm'
+import LoginUser from '../../components/scensComponents/Login/LoginUser'
 
 export const Login = () => {
   return (
     <div>
-      <LoginForm/>
+      <LoginUser/>
     </div>
   )
 }

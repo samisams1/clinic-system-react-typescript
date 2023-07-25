@@ -7,7 +7,12 @@
 
 
 
-
+declare global {
+  interface NexusGenCustomOutputProperties<TypeName extends string> {
+    model: NexusPrisma<TypeName, 'model'>
+    crud: any
+  }
+}
 
 declare global {
   interface NexusGen extends NexusGenTypes {}
@@ -45,6 +50,10 @@ export interface NexusGenObjects {
     nextvist?: string | null; // String
     patient?: string | null; // String
     symptoms?: string | null; // String
+  }
+  AuthPayload: { // root type
+    token?: string | null; // String
+    user?: NexusGenRootTypes['User'] | null; // User
   }
   Cashier: { // root type
     email?: string | null; // String
@@ -114,6 +123,7 @@ export interface NexusGenObjects {
     lastName?: string | null; // String
     password?: string | null; // String
     phoneNumber?: string | null; // String
+    role?: string | null; // String
     roleId?: string | null; // String
   }
 }
@@ -149,6 +159,10 @@ export interface NexusGenFieldTypes {
     nextvist: string | null; // String
     patient: string | null; // String
     symptoms: string | null; // String
+  }
+  AuthPayload: { // field return type
+    token: string | null; // String
+    user: NexusGenRootTypes['User'] | null; // User
   }
   Cashier: { // field return type
     Role: Array<NexusGenRootTypes['Role'] | null> | null; // [Role]
@@ -186,7 +200,9 @@ export interface NexusGenFieldTypes {
     createCheckup: NexusGenRootTypes['Checkup'] | null; // Checkup
     createPatient: NexusGenRootTypes['Patient'] | null; // Patient
     createPatientVitals: NexusGenRootTypes['PatientVitals'] | null; // PatientVitals
+    createUser: NexusGenRootTypes['User'] | null; // User
     deletePatient: NexusGenRootTypes['Patient'] | null; // Patient
+    login: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
     updatePost: NexusGenRootTypes['Patient'] | null; // Patient
   }
   Nurse: { // field return type
@@ -223,10 +239,11 @@ export interface NexusGenFieldTypes {
     PatientVitals: Array<NexusGenRootTypes['PatientVitals'] | null> | null; // [PatientVitals]
     admins: Array<NexusGenRootTypes['Admin'] | null> | null; // [Admin]
     appointments: Array<NexusGenRootTypes['Appointment'] | null> | null; // [Appointment]
-    cashier: Array<NexusGenRootTypes['Cashier'] | null> | null; // [Cashier]
+    cashiers: Array<NexusGenRootTypes['Cashier'] | null> | null; // [Cashier]
     checkups: Array<NexusGenRootTypes['Checkup'] | null> | null; // [Checkup]
     doctors: Array<NexusGenRootTypes['Doctor'] | null> | null; // [Doctor]
-    nurse: Array<NexusGenRootTypes['Nurse'] | null> | null; // [Nurse]
+    me: NexusGenRootTypes['User'] | null; // User
+    nurses: Array<NexusGenRootTypes['Nurse'] | null> | null; // [Nurse]
     patients: Array<NexusGenRootTypes['Patient'] | null> | null; // [Patient]
     user: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
@@ -242,6 +259,7 @@ export interface NexusGenFieldTypes {
     lastName: string | null; // String
     password: string | null; // String
     phoneNumber: string | null; // String
+    role: string | null; // String
     roleId: string | null; // String
   }
 }
@@ -267,6 +285,10 @@ export interface NexusGenFieldTypeNames {
     nextvist: 'String'
     patient: 'String'
     symptoms: 'String'
+  }
+  AuthPayload: { // field return type name
+    token: 'String'
+    user: 'User'
   }
   Cashier: { // field return type name
     Role: 'Role'
@@ -304,7 +326,9 @@ export interface NexusGenFieldTypeNames {
     createCheckup: 'Checkup'
     createPatient: 'Patient'
     createPatientVitals: 'PatientVitals'
+    createUser: 'User'
     deletePatient: 'Patient'
+    login: 'AuthPayload'
     updatePost: 'Patient'
   }
   Nurse: { // field return type name
@@ -341,10 +365,11 @@ export interface NexusGenFieldTypeNames {
     PatientVitals: 'PatientVitals'
     admins: 'Admin'
     appointments: 'Appointment'
-    cashier: 'Cashier'
+    cashiers: 'Cashier'
     checkups: 'Checkup'
     doctors: 'Doctor'
-    nurse: 'Nurse'
+    me: 'User'
+    nurses: 'Nurse'
     patients: 'Patient'
     user: 'User'
     users: 'User'
@@ -360,6 +385,7 @@ export interface NexusGenFieldTypeNames {
     lastName: 'String'
     password: 'String'
     phoneNumber: 'String'
+    role: 'String'
     roleId: 'String'
   }
 }
@@ -399,8 +425,20 @@ export interface NexusGenArgTypes {
       patient?: number | null; // Int
       temperature?: string | null; // String
     }
+    createUser: { // args
+      email?: string | null; // String
+      firstName?: string | null; // String
+      lastName?: string | null; // String
+      password?: string | null; // String
+      phoneNumber?: string | null; // String
+      role?: number | null; // Int
+    }
     deletePatient: { // args
       id?: number | null; // Int
+    }
+    login: { // args
+      email?: string | null; // String
+      password?: string | null; // String
     }
     updatePost: { // args
       address?: string | null; // String

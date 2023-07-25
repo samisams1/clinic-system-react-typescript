@@ -14,3 +14,20 @@ query PatientVitals {
     }
   }
 `
+export const CREATE_PATIENT_VITALS=gql`
+mutation CreatePatientVitals($temperature:String!,$bpDiastolic:String!,$bpSystolic:String!,$notes:String!,$patient:Int!) {
+  createPatientVitals(temperature:$temperature,bpDiastolic:$bpDiastolic,bpSystolic:$bpSystolic,notes:$notes,patient:$patient) {
+    id
+    temperature
+    bpSystolic
+    bpDiastolic
+    notes
+    Patient {
+      id
+      firstName
+      lastName
+      email
+    }
+  }
+}
+`

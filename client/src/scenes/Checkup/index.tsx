@@ -1,10 +1,11 @@
 import React from 'react'
 import { Box } from '@mui/material'
-import { CheckupList, CheckupToolbar } from '../../components/scensComponents/checkup'
+import { CheckupForm, CheckupList } from '../../components/scensComponents/checkup'
+import { Toolbar } from '../../components/scensComponents/toolbar'
 const Checkup = () => {
   return (
    <Box>
-    <CheckupToolbar/>
+    <Toolbar name = "Checkup"addName="Create  New Checkup" formName ={<CheckupForm/>} />
     <CheckupList/>
    </Box>
   )

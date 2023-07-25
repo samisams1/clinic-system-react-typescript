@@ -11,6 +11,7 @@ export const User = objectType({
         t.string('phoneNumber')
         t.string('password')
         t.string('roleId')
+        t.string('role')
         
     },
 })

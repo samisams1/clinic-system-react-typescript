@@ -25,6 +25,11 @@ type Appointment {
   symptoms: String
 }
 
+type AuthPayload {
+  token: String
+  user: User
+}
+
 type Cashier {
   Role: [Role]
   email: String
@@ -64,7 +69,9 @@ type Mutation {
   createCheckup(checkUpDate: String, diagosis: String, doctor: Int, nextvist: String, patient: Int, symptoms: String): Checkup
   createPatient(address: String, country: String, dateOfBirth: String, email: String, firstName: String, lastName: String, martialStatus: String, phoneNumber: String): Patient
   createPatientVitals(bpDiastolic: String, bpSystolic: String, notes: String, patient: Int, temperature: String): PatientVitals
+  createUser(email: String, firstName: String, lastName: String, password: String, phoneNumber: String, role: Int): User
   deletePatient(id: Int): Patient
+  login(email: String, password: String): AuthPayload
   updatePost(address: String, country: String, dateOfBirth: String, email: String, firstName: String, id: Int, lastName: String, martialStatus: String, phoneNumber: String): Patient
 }
 
@@ -105,10 +112,11 @@ type Query {
   PatientVitals(id: ID): [PatientVitals]
   admins: [Admin]
   appointments(id: ID): [Appointment]
-  cashier: [Cashier]
+  cashiers: [Cashier]
   checkups(id: ID): [Checkup]
   doctors: [Doctor]
-  nurse: [Nurse]
+  me: User
+  nurses: [Nurse]
   patients(id: ID): [Patient]
   user(id: ID): [User]
   users: [User]
@@ -126,5 +134,6 @@ type User {
   lastName: String
   password: String
   phoneNumber: String
+  role: String
   roleId: String
 }

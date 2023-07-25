@@ -5,4 +5,3 @@ export * from './Patient';
 export * from './dashboard';
 export * from './Cashier';
 export * from './Login';
-export * from './Register';

@@ -1,16 +1,85 @@
 import { idArg, intArg, list, mutationType, stringArg } from "@nexus/schema";
 import { PrismaClient } from "@prisma/client";
 //import { LikedTweet } from "./LikedTweet";
+import { APP_SECRET } from "../utils";
+import { sign } from "jsonwebtoken"
+import { compareSync } from "bcryptjs";
+const bcrypt = require('bcryptjs');
+
 const prisma = new PrismaClient();
 export const Mutation = mutationType({
     definition(t){
+      //login mutation
+ 
+   
+      t.field("login", {
+        type:"AuthPayload",
+        args: {
+          email: stringArg(),
+          password: stringArg()
+        },
+        resolve: async (_parent, { email, password }, ctx) => {
+          const user = await prisma.user.findFirst({
+            where: {
+              email
+            }
+          })
+          if (!user) {
+            throw new Error(`No user found for email: ${email}`)
+          }
+          const passwordValid = await compareSync(password, user.password)
+          if (!passwordValid) {
+            throw new Error("Invalid password")
+          }
+          return {
+            token: sign({ userId: user.id }, APP_SECRET),
+            user
+          }
+        }
+      });
+      //end Login
+      //create Users
+      t.field('createUser', {
+        type: 'User',
+        args: {
+          firstName: stringArg(),
+          lastName: stringArg(),
+          email: stringArg(),
+          phoneNumber: stringArg(),
+          password: stringArg(),
+          role:intArg(),
+       
+        },
+        resolve: (_parent, { 
+            firstName, 
+            lastName,
+            email,
+            phoneNumber,
+            password,
+            role
+             }, ctx) => {
+              const pass = bcrypt.hashSync(password,10);
+          return prisma.user.create({
+            data: {
+                firstName,
+                lastName,
+                email,
+                phoneNumber,
+                password:pass,
+                role: { connect: { id: Number(role) } },
+
+            },
+          })
+        },
+      });
+      //end Create USers
       // start patient mutation
         t.field('createPatient', {
             type: 'Patient',
             args: {
-                  firstName: stringArg(),
-                  lastName:stringArg(),
-                  dateOfBirth:stringArg(),
+                   firstName: stringArg(),
+                    lastName:stringArg(),
+                    dateOfBirth:stringArg(),
                     martialStatus:stringArg(),
                     phoneNumber:stringArg(),
                     email:stringArg(),
@@ -174,7 +243,7 @@ export const Mutation = mutationType({
             bpDiastolic,
             notes,
             patient: { connect: { id: Number(patient) } },
-
+            
           },
         })
       },

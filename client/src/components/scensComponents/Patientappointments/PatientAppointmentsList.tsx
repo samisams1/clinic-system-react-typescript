@@ -5,19 +5,19 @@ import { Grid, Typography } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import Popup from '../../Popup';
 import PatientEditForm from '../patient/PatientEditForm';
-import { PatientVitals } from '../../../interface/interfaces';
-import { PATIENT_VITALS_QUERY } from '../../../graphql/PatientVitals';
+import { appointmentInterface} from '../../../interface/interfaces';
+import { APPOITMENT_QUERY } from '../../../graphql/Appointment';
 
 export const PatientAppointmentsList = () => {
     const [openPopup,setOpenPopup] =useState(false);
     const  [openCofirmPopup,setOpenConfirimPopup]=useState(false);
     const [newData,setNewData]=useState("");
-    const {loading,error,data} = useQuery(PATIENT_VITALS_QUERY);
+    const {loading,error,data} = useQuery(APPOITMENT_QUERY);
     if(loading) return <p>Loading...</p>
     if (error) return <p>{error.message}</p>
     console.log(data)
-    const patientVital = data.PatientVitals.map((row:PatientVitals)=>(
-        [row.id,row.temperature,row.bpSystolic,row.bpDiastolic,row.notes,row.patient?.firstName]
+    const patientVital = data.appointments.map((row:appointmentInterface)=>(
+        [row.id,row.symptoms,row.diagosis,row.checkUpDate,row.nextvist]
     ))
     const columns = [
         {

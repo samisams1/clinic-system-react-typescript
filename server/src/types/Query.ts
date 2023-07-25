@@ -5,6 +5,16 @@ import { type } from "os";
 const prisma = new PrismaClient();
 export const Query = queryType({
   definition(t) {
+    t.field("me", {
+      type: "User",
+      resolve: (_parent, args, ctx) => {
+        return prisma.user.findUnique({
+          where: {
+            id: 1,
+          },
+        })
+      },
+    }),
       t.list.field('users',{
        type:"User",
        resolve: (_, _args, ctx) => {
@@ -46,7 +56,7 @@ export const Query = queryType({
         resolve: (_, _args, ctx) => {
          return prisma.user.findMany({
           where:{
-            roleId:3
+            roleId:4
           }
          });
         }

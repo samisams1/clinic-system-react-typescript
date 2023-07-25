@@ -11,14 +11,22 @@ export interface patientInterface {
     country?: string;
   }
   export interface userInterface {
-    id?: string;
+    id?: number;
     firstName?: string;
     lastName?: string;
     email?: string;
     martialStatus?: string;
     phoneNumber?: string;
     password?:string;
-    role?:roleInterface;
+    roleId?:number;
+    Role?:{
+      id?:number;
+      name?: string;
+    };
+  }
+  export interface Role {
+    id?: number;
+    name?: string;
   }
   export interface appointmentInterface {
     id?: string;
@@ -26,8 +34,8 @@ export interface patientInterface {
     diagosis?: string;
     checkUpDate?: string;
     nextvist?: string;
-    doctor?: userInterface;
-    patient?: userInterface;
+    doctor?: number;
+    patient?: number;
 
   }
   export interface checkUpInterface {
@@ -44,12 +52,16 @@ export interface patientInterface {
     temperature?: string;
     bpSystolic?: string;
     bpDiastolic?: string;
-    notes?: userInterface;
-    patient?: userInterface;
-    doctor?: userInterface;
+    notes?: string;
+    patient?: number;
+    doctor?: number;
   }
   export interface roleInterface {
     id?: string;
     name?: string;
   }
-
+  export interface LoginValues {
+    email: string
+    password: string
+  }
+  

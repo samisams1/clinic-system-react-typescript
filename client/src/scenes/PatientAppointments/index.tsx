@@ -1,12 +1,12 @@
 import { Box } from '@mui/material'
 import React from 'react'
-import { PatientAppointmentsList } from '../../components/scensComponents/Patientappointments'
-import PatientAppointmentToolbar from '../../components/scensComponents/Patientappointments/PatientAppointmentToolbar'
+import { PatientAppointmentForm, PatientAppointmentsList } from '../../components/scensComponents/Patientappointments'
+import { Toolbar } from '../../components/scensComponents/toolbar'
 
 const PatientAppointments = () => {
   return (
    <Box>
-    <PatientAppointmentToolbar/>
+    <Toolbar name = "Patient Appointment" addName="Create New Patient Appointment" formName ={<PatientAppointmentForm/>}/>
     <PatientAppointmentsList/>
    </Box>
   )

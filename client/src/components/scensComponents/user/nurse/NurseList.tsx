@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import Button from '../../Button';
+import {userInterface } from '../../../../interface/interfaces';
+import Button from '../../../Button';
 import { Grid, Typography } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
-import Popup from '../../Popup';
-import PatientEditForm from '../patient/PatientEditForm';
-import { userInterface } from '../../../interface/interfaces';
-import { DOCTOR_QUERY } from '../../../graphql/Doctors';
-
-export const DoctorList = () => {
+import Popup from '../../../Popup';
+import PatientEditForm from '../../patient/PatientEditForm';
+import { NURSE_QUERY } from '../../../../graphql/Nurse';
+export const NurseList = () => {
     const [openPopup,setOpenPopup] =useState(false);
     const  [openCofirmPopup,setOpenConfirimPopup]=useState(false);
     const [newData,setNewData]=useState("");
-    const {loading,error,data} = useQuery(DOCTOR_QUERY);
+    const {loading,error,data} = useQuery(NURSE_QUERY);
     if(loading) return <p>Loading...</p>
     if (error) return <p>{error.message}</p>
     console.log(data)
-    const doctor = data.doctors.map((row:userInterface)=>(
-        [row.id,row.firstName,row.lastName,row.phoneNumber,row.email]
+    const nurse = data.nurses.map((row:userInterface)=>(
+        [row.id,row.firstName,row.lastName,row.phoneNumber,row.email,row.Role?.name]
     ))
     const columns = [
         {
@@ -49,6 +48,13 @@ export const DoctorList = () => {
         },
         {
           name: "Email",
+          options: {
+            filter: true,
+            sort: false,
+          }
+        },
+        {
+          name: "Role",
           options: {
             filter: true,
             sort: false,
@@ -92,14 +98,14 @@ export const DoctorList = () => {
       return (
         <Grid>
              <MUIDataTable
-               title="Doctor"
-               data={doctor}
+               title="Admin"
+               data={nurse}
                columns={columns}
                options={{
                  filterType: "checkbox",
                }}
              />
-               <Popup
+   <Popup
                     title="Patient Edit Form"
                     openPopup={openCofirmPopup}
                     setOpenPopup={setOpenConfirimPopup}
@@ -114,13 +120,9 @@ export const DoctorList = () => {
             type="submit"
             text="No" />
     </Grid>
-    
-    
-    
-                  </Grid>
-       
-         </Popup>
-        <Popup
+   </Grid>
+  </Popup>
+  <Popup
                     title="Patient Edit Form"
                     openPopup={openPopup}
                     setOpenPopup={setOpenPopup}

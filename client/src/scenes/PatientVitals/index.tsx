@@ -1,15 +1,14 @@
-import { Box } from '@mui/material'
 import React from 'react'
-import { PatientAppointmentsList } from '../../components/scensComponents/Patientappointments'
-import PatientAppointmentToolbar from '../../components/scensComponents/Patientappointments/PatientAppointmentToolbar'
-
+import { Box } from '@mui/material'
+import { Toolbar } from '../../components/scensComponents/toolbar'
+import PatientVitalsForm from '../../components/scensComponents/patientvitals/PatientVitalsForm'
+import { PatientVitalsList } from '../../components/scensComponents/patientvitals'
 const PatientVitals = () => {
   return (
     <Box>
-         <PatientAppointmentToolbar/>
-         <PatientAppointmentsList/>
+    <Toolbar name = "Patient Vitals" addName ="Create Patient Vitals" formName = {<PatientVitalsForm/>}/> 
+    <PatientVitalsList/>     
     </Box>
   )
 }
-
 export default PatientVitals

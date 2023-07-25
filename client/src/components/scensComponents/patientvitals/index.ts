@@ -1,2 +1,2 @@
-export * from './PatientVitalsToolbar';
-export * from './PatientVitals';
+export * from './PatientVitalsForm';
+export * from './PatientVitalsList';

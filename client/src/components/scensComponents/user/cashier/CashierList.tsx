@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { patientInterface } from '../../../interface/interfaces';
-import Button from '../../Button';
+import { patientInterface } from '../../../../interface/interfaces';
+import Button from '../../../Button';
 import { Grid, Typography } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
-import Popup from '../../Popup';
-import PatientEditForm from '../patient/PatientEditForm';
-import { CASHIER_QUERY } from '../../../graphql/Cashier';
+import Popup from '../../../Popup';
+import PatientEditForm from '../../patient/PatientEditForm';
+import { CASHIER_QUERY } from '../../../../graphql/Cashier';
 
 export const CashierList = () => {
     const [openPopup,setOpenPopup] =useState(false);
@@ -16,7 +16,7 @@ export const CashierList = () => {
     if(loading) return <p>Loading...</p>
     if (error) return <p>{error.message}</p>
     console.log(data)
-    const cashier = data.cashier.map((row:patientInterface)=>(
+    const cashier = data.cashiers.map((row:patientInterface)=>(
         [row.id,row.firstName,row.lastName,row.dateOfBirth,row.maritalStatus,row.phoneNumber,row.email,row.email,row.address,row.country]
     ))
     const columns = [

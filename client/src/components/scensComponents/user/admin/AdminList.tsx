@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { userInterface } from '../../../interface/interfaces';
-import Button from '../../Button';
 import { Grid, Typography } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
-import Popup from '../../Popup';
-import PatientEditForm from '../patient/PatientEditForm';
-import { ADMIN_QUERY } from '../../../graphql/Admin';
-
+import { userInterface } from '../../../../interface/interfaces';
+import { ADMIN_QUERY } from '../../../../graphql/Admin';
+import Button from '../../../Button';
+import Popup from '../../../Popup';
 export const AdminList = () => {
     const [openPopup,setOpenPopup] =useState(false);
     const  [openCofirmPopup,setOpenConfirimPopup]=useState(false);
@@ -18,7 +16,7 @@ export const AdminList = () => {
     console.log(data)
     const admin = data.admins
     .map((row:userInterface)=>(
-        [row.id,row.firstName,row.lastName,row.phoneNumber,row.email,row.email]
+        [row.id,row.firstName,row.lastName,row.phoneNumber,row.email,row.email,"samisams"]
     ))
     const columns = [
         {
@@ -50,6 +48,13 @@ export const AdminList = () => {
         },
         {
           name: "Email",
+          options: {
+            filter: true,
+            sort: false,
+          }
+        },
+        {
+          name: "Role",
           options: {
             filter: true,
             sort: false,
@@ -126,7 +131,7 @@ export const AdminList = () => {
                     openPopup={openPopup}
                     setOpenPopup={setOpenPopup}
                 >
-     <PatientEditForm id = {newData[0]} firstName={newData[1]} lastName={newData[2]}  dateOfBirth={newData[3]}   phoneNumber={newData[4]} martialStatus={newData[5]}  email={newData[6]}  address={newData[7]}  country={newData[8]} />
+     sami form
          </Popup>
         </Grid>
       )

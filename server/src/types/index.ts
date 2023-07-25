@@ -10,3 +10,4 @@ export * from "./Admin";
 export * from "./Doctor";
 export * from "./Nurse";
 export * from "./Cashier";
+export * from "./AuthPayload";

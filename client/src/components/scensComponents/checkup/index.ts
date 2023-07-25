@@ -1,2 +1,2 @@
 export * from './CheckupList';
-export * from './CheckupToolbar';
+export * from './CheckupForm';

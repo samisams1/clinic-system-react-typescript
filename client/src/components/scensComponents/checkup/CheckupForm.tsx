@@ -1,10 +1,11 @@
 import React from 'react'
 
-export const Register = () => {
+export const CheckupForm = () => {
   return (
     <div>
-      Register
+CheckupForm
     </div>
   )
 }
+
 
