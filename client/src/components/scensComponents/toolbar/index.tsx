@@ -6,8 +6,17 @@ import {
 import ActionButton from '../../ActionButton';
 import Button from '../../Button';
 import Popup from '../../Popup';
+import { useNavigate } from 'react-router-dom';
 export const Toolbar =({name,addName,formName}:any)=>{
   const [openPopup, setOpenPopup] = useState(false);
+  const navigate = useNavigate();
+  const logout = ()=>{
+    localStorage.removeItem("token")
+    navigate("/login")
+  }
+
+
+  
 return( 
 <Box>
     <Box
@@ -23,16 +32,21 @@ return(
         sx={{ m: 1 }}
         variant="h4"
       >
-        {name}
+        {name} 
       </Typography>
       <Box sx={{ m: 1 }}>
       <ActionButton />
+
         <Button
                         text={addName}
                         variant="outlined"
                         onClick={() => { setOpenPopup(true);  }}
                     />
       </Box>
+      <Button
+                        text={"logOut"}
+                        onClick={() => logout()}
+      />
     </Box>
     <Popup
                 title={name + " Form"}

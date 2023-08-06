@@ -18,11 +18,8 @@ export interface patientInterface {
     martialStatus?: string;
     phoneNumber?: string;
     password?:string;
-    roleId?:number;
-    Role?:{
-      id?:number;
-      name?: string;
-    };
+    roleId:number;
+    Role?:Role;
   }
   export interface Role {
     id?: number;

@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { patientInterface } from '../../../../interface/interfaces';
-import Button from '../../../Button';
+import { userInterface } from '../../../interface/interfaces';
 import { Grid, Typography } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
-import Popup from '../../../Popup';
-import PatientEditForm from '../../patient/PatientEditForm';
-import { CASHIER_QUERY } from '../../../../graphql/Cashier';
-
-export const CashierList = () => {
+import Popup from '../../Popup';
+import Button from '../../Button';
+import PatientEditForm from '../patient/PatientEditForm';
+import { USER_QUERY } from '../../../graphql/Users';
+export const UserList = ({title,roleId}:any) => {
     const [openPopup,setOpenPopup] =useState(false);
     const  [openCofirmPopup,setOpenConfirimPopup]=useState(false);
     const [newData,setNewData]=useState("");
-    const {loading,error,data} = useQuery(CASHIER_QUERY);
+    const { loading, error, data } = useQuery(USER_QUERY, {
+      variables: { roleId },
+    });
+    
     if(loading) return <p>Loading...</p>
     if (error) return <p>{error.message}</p>
     console.log(data)
-    const cashier = data.cashiers.map((row:patientInterface)=>(
-        [row.id,row.firstName,row.lastName,row.dateOfBirth,row.maritalStatus,row.phoneNumber,row.email,row.email,row.address,row.country]
+    const row = data.users.map((row:userInterface)=>(
+        [row.id,row.firstName,row.lastName,row.phoneNumber,row.email,row.roleId]
     ))
     const columns = [
         {
@@ -41,20 +43,6 @@ export const CashierList = () => {
           }
         },
         {
-          name: "Birth Date",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
-          name: "Martial Status",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
           name: "Phone Number",
           options: {
             filter: true,
@@ -69,14 +57,7 @@ export const CashierList = () => {
           }
         },
         {
-          name: "Address",
-          options: {
-            filter: true,
-            sort: false,
-          }
-        },
-        {
-          name: "Country",
+          name: "Role",
           options: {
             filter: true,
             sort: false,
@@ -120,14 +101,14 @@ export const CashierList = () => {
       return (
         <Grid>
              <MUIDataTable
-               title="Cashier"
-               data={cashier}
+               title={title}
+               data={row}
                columns={columns}
                options={{
                  filterType: "checkbox",
                }}
              />
-               <Popup
+   <Popup
                     title="Patient Edit Form"
                     openPopup={openCofirmPopup}
                     setOpenPopup={setOpenConfirimPopup}
@@ -142,13 +123,9 @@ export const CashierList = () => {
             type="submit"
             text="No" />
     </Grid>
-    
-    
-    
-                  </Grid>
-       
-         </Popup>
-        <Popup
+   </Grid>
+  </Popup>
+  <Popup
                     title="Patient Edit Form"
                     openPopup={openPopup}
                     setOpenPopup={setOpenPopup}

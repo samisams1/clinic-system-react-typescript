@@ -1,75 +1,31 @@
 import { PrismaClient } from "@prisma/client";
-import { arg, idArg, queryType, stringArg } from "nexus"
+import { argsToArgsConfig } from "graphql/type/definition";
+import { arg, idArg, intArg, queryType, stringArg } from "nexus"
 import { type } from "os";
+import { getUserId } from "../utils";
 
 const prisma = new PrismaClient();
 export const Query = queryType({
   definition(t) {
-    t.field("me", {
-      type: "User",
-      resolve: (_parent, args, ctx) => {
-        return prisma.user.findUnique({
-          where: {
-            id: 1,
-          },
-        })
-      },
-    }),
-      t.list.field('users',{
-       type:"User",
-       resolve: (_, _args, ctx) => {
-        return prisma.user.findMany();
-       }
-      });
-      t.list.field('admins',{
-        type:"Admin",
-        resolve: (_, _args, ctx) => {
-         return prisma.user.findMany({
-          where:{
-            roleId:1
-          }
-         });
-        }
-       });
-      t.list.field('doctors',{
-        type:"Doctor",
-        resolve: (_, _args, ctx) => {
-         return prisma.user.findMany({
-          where:{
-            roleId:2
-          }
-         });
-        }
-       });
-       t.list.field('nurses',{
-        type:"Nurse",
-        resolve: (_, _args, ctx) => {
-         return prisma.user.findMany({
-          where:{
-            roleId:3
-          }
-         });
-        }
-       });
-       t.list.field('cashiers',{
-        type:"Cashier",
-        resolve: (_, _args, ctx) => {
-         return prisma.user.findMany({
-          where:{
-            roleId:4
-          }
-         });
-        }
-       });
-      t.list.field('user',{
-        type:"User",
-        args: { id: idArg() },
-        resolve: (_parent,{id},ctx)=>{
-            return prisma.user.findMany({
-              
-            })
-        }
-      });
+    t.list.field('me',{
+      type:"User",
+      resolve: (_parent,_args,ctx)=>{
+        const userId = getUserId;
+          return ctx.prisma.user.findMany({
+where:{id:1}
+          })
+      }
+    });
+    t.list.field('users',{
+      type:"User",
+      args: { roleId: intArg() },
+      resolve: (_parent,{roleId},ctx)=>{
+          return ctx.prisma.user.findMany({
+            where:{roleId:roleId}
+          })
+      }
+    });
+    
       t.list.field('patients',{
         type:"Patient",
         args: { id: idArg() },

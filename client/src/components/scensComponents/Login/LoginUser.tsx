@@ -1,17 +1,26 @@
-import React from "react"
-import { useMutation } from "@apollo/client"
+import { gql, useMutation } from "@apollo/client"
 import { ErrorMessage, Field, Form, Formik } from "formik"
+import React from "react"
 import { Link, useNavigate } from "react-router-dom"
 import * as Yup from "yup"
-import { LOGIN_MUTATION } from "../../../graphql/Login"
+//import TwitterLogo from "../styles/assets/twitter-logo.png"
+//import "../styles/login.css"
+
+const LOGIN_MUTATION = gql`
+	mutation login($email: String!, $password: String!) {
+		login(email: $email, password: $password) {
+			token
+		}
+	}
+`
 
 interface LoginValues {
 	email: string
 	password: string
 }
 
-function LoginUser() {
-	const history = useNavigate()
+function Login() {
+	const navigate = useNavigate()
 	const [ login, { data } ] = useMutation(LOGIN_MUTATION)
 
 	const initialValues: LoginValues = {
@@ -26,6 +35,7 @@ function LoginUser() {
 
 	return (
 		<div className="container">
+			
 			<h3>Log in to Fake Twitter</h3>
 			<Formik
 				initialValues={initialValues}
@@ -37,7 +47,7 @@ function LoginUser() {
 					})
 					localStorage.setItem("token", response.data.login.token)
 					setSubmitting(false)
-					history("/")
+					navigate("/profile");
 				}}
 			>
 				<Form>
@@ -60,4 +70,4 @@ function LoginUser() {
 	)
 }
 
-export default LoginUser
+export default Login

@@ -2,17 +2,6 @@
 ### Do not make changes to this file directly
 
 
-type Admin {
-  Role: [Role]
-  email: String
-  firstName: String
-  id: ID
-  lastName: String
-  password: String
-  phoneNumber: String
-  roleId: String
-}
-
 type Appointment {
   Doctor: [User]
   Patient: [Patient]
@@ -30,17 +19,6 @@ type AuthPayload {
   user: User
 }
 
-type Cashier {
-  Role: [Role]
-  email: String
-  firstName: String
-  id: ID
-  lastName: String
-  password: String
-  phoneNumber: String
-  roleId: String
-}
-
 type Checkup {
   Doctor: [User]
   Patient: [Patient]
@@ -53,17 +31,6 @@ type Checkup {
   symptoms: String
 }
 
-type Doctor {
-  Role: [Role]
-  email: String
-  firstName: String
-  id: ID
-  lastName: String
-  password: String
-  phoneNumber: String
-  roleId: String
-}
-
 type Mutation {
   createAppointment(checkUpDate: String, diagosis: String, doctor: Int, nextvist: String, patient: Int, symptoms: String): Appointment
   createCheckup(checkUpDate: String, diagosis: String, doctor: Int, nextvist: String, patient: Int, symptoms: String): Checkup
@@ -72,18 +39,7 @@ type Mutation {
   createUser(email: String, firstName: String, lastName: String, password: String, phoneNumber: String, role: Int): User
   deletePatient(id: Int): Patient
   login(email: String, password: String): AuthPayload
-  updatePost(address: String, country: String, dateOfBirth: String, email: String, firstName: String, id: Int, lastName: String, martialStatus: String, phoneNumber: String): Patient
-}
-
-type Nurse {
-  Role: [Role]
-  email: String
-  firstName: String
-  id: ID
-  lastName: String
-  password: String
-  phoneNumber: String
-  roleId: String
+  updatePatient(address: String, country: String, dateOfBirth: String, email: String, firstName: String, id: Int, lastName: String, martialStatus: String, phoneNumber: String): Patient
 }
 
 type Patient {
@@ -110,16 +66,11 @@ type PatientVitals {
 
 type Query {
   PatientVitals(id: ID): [PatientVitals]
-  admins: [Admin]
   appointments(id: ID): [Appointment]
-  cashiers: [Cashier]
   checkups(id: ID): [Checkup]
-  doctors: [Doctor]
-  me: User
-  nurses: [Nurse]
+  me: [User]
   patients(id: ID): [Patient]
-  user(id: ID): [User]
-  users: [User]
+  users(roleId: Int): [User]
 }
 
 type Role {
@@ -128,12 +79,12 @@ type Role {
 }
 
 type User {
+  Role: [Role]
   email: String
   firstName: String
-  id: ID
+  id: Int
   lastName: String
   password: String
   phoneNumber: String
-  role: String
   roleId: String
 }

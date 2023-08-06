@@ -18,7 +18,7 @@ model User {
   phoneNumber     String
   email           String
   password        String
-  role    Role?       @relation(fields: [roleId], references: [id])
+  role    Role?        @relation(fields: [roleId], references: [id])
   roleId Int?
    checkup     CheckUp[]
    appointment     Appointment[]

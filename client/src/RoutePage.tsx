@@ -15,25 +15,18 @@ const RoutePage=()=>{
  <BrowserRouter>
     <Routes>
         <Route element={<Login/>} path="/" />
-        <Route path="/admin"
-  element={
-    <IsAuthenticated>
-      <Admin />
-    </IsAuthenticated>
-  }
-/>
-<Route path ="/nurse" element={   <Nurse/>}/>
-<Route path ="/cashier" element={ <Cashier/>}/>
-<Route path ="/doctor" element={ <Doctor/>}/>
-<Route path ="/checkup" element={ <Checkup/>}/>
-<Route path ="/patient" element={ <Patient/>}/>
-<Route path ="/patientVitals" element={ <PatientVitals/>}/>
-<Route path ="/patientAppointments" element={ <PatientAppointments/>}/>
-<Route path ="/login" element={ <Login/>}/>
-<Route path ="/forgotPassword" element={ <ForgotPassword/>}/>
-<Route path ="/changePassword" element={ <ChangePassword/>}/>
-<Route path ="/profile" element={ <Profile/>}/>
-
+        <Route path ="/login" element={ <Login/>}/>
+<Route path="/admin" element={<IsAuthenticated><Admin /></IsAuthenticated>}/>
+<Route path="/nurse" element={<IsAuthenticated><Nurse /></IsAuthenticated>}/>
+<Route path="/cashier" element={<IsAuthenticated><Cashier /></IsAuthenticated>}/>
+<Route path="/doctor" element={<IsAuthenticated><Doctor /></IsAuthenticated>}/>
+<Route path="/checkup" element={<IsAuthenticated><Checkup /></IsAuthenticated>}/>
+<Route path="/patient" element={<IsAuthenticated><Patient /></IsAuthenticated>}/>
+<Route path="/patientVitals" element={<IsAuthenticated><PatientVitals /></IsAuthenticated>}/>
+<Route path="/patientAppointments" element={<IsAuthenticated><PatientAppointments /></IsAuthenticated>}/>
+<Route path="/forgotPassword" element={<IsAuthenticated><ForgotPassword /></IsAuthenticated>}/>
+<Route path="/changePassword" element={<IsAuthenticated><ChangePassword /></IsAuthenticated>}/>
+<Route path="/profile" element={<IsAuthenticated><Profile /></IsAuthenticated>}/>
     </Routes>
     </BrowserRouter>
 </>

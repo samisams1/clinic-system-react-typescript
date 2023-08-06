@@ -10,8 +10,6 @@ const prisma = new PrismaClient();
 export const Mutation = mutationType({
     definition(t){
       //login mutation
- 
-   
       t.field("login", {
         type:"AuthPayload",
         args: {
@@ -58,7 +56,7 @@ export const Mutation = mutationType({
             password,
             role
              }, ctx) => {
-              const pass = bcrypt.hashSync(password,10);
+             const pass = bcrypt.hashSync(password,10);
           return prisma.user.create({
             data: {
                 firstName,
@@ -110,7 +108,7 @@ export const Mutation = mutationType({
               })
             },
           });
-          t.field('updatePost', {
+          t.field('updatePatient', {
             type: 'Patient',
             args: {
               id: intArg(),

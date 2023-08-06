@@ -4,12 +4,16 @@ import { Form, useForm } from '../../useForm';
 import Controls from '../../Controls';
 import { userInterface } from '../../../interface/interfaces';
 import { useMutation } from '@apollo/client';
-import { CREATE_USER, NURSE_QUERY } from '../../../graphql/Nurse';
 import Button from '../../Button';
+import { CREATE_USER, USER_QUERY } from '../../../graphql/Users';
 
-export const UserForm = ({roleId,fecthQuery}:any) => {
+interface Props {
+	roleId: number
+}
+
+export const UserForm = ({roleId}:Props) => {
   const [createProfile] = useMutation(CREATE_USER, {
-    refetchQueries: [{ query: fecthQuery }],
+    refetchQueries: [{ query: USER_QUERY }],
   })
   const initialFValues: userInterface = {
     firstName: '',
